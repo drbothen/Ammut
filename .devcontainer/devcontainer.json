@@ -1,0 +1,54 @@
+{
+  "name": "Ammut - Python (Ubuntu + uv)",
+  "image": "mcr.microsoft.com/devcontainers/base:jammy",
+  "remoteUser": "vscode",
+  "features": {
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.12",
+      "installJupyterlab": true
+    },
+    "ghcr.io/jsburckhardt/devcontainer-features/uv:1": {},
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20",
+      "nodeGypDependencies": true
+    },
+    "ghcr.io/devcontainers/features/go:1": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/ruby:1": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "latest"
+    },
+    "ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
+      "packages": "git,curl,wget,apt-transport-https,software-properties-common,build-essential,libpcap-dev,libffi-dev,libssl-dev,libpq-dev"
+    }
+  },
+  "settings": {
+    "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+    "python.terminal.activateEnvironment": true,
+    "terminal.integrated.defaultProfile.linux": "bash"
+  },
+  "containerEnv": {
+    "UV_PYTHON_DOWNLOADS": "1"
+  },
+  "mounts": [
+    "source=${localEnv:HOME}/.cache/uv,target=/home/vscode/.cache/uv,type=bind,consistency=cached"
+  ],
+  "postCreateCommand": [
+    "/bin/bash",
+    "-lc",
+    "set -euo pipefail; uv venv --python 3.12 .venv || true; if [ -f pyproject.toml ]; then uv sync --workspace; fi"
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "charliermarsh.ruff",
+        "ms-toolsai.jupyter"
+      ]
+    }
+  }
+}
