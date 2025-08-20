@@ -210,3 +210,4 @@ __marimo__/
 # Reference
 reference/
 .windsurf
+playwright_cache/
