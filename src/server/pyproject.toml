@@ -3,9 +3,30 @@ name = "ammut-server"
 version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
-  "fastapi"
+  "fastapi",
+  "uvicorn",
+  "pydantic-settings",
+  "httpx",
+  "beautifulsoup4",
+  "playwright",
+  "psutil"
 ]
 
 [build-system]
-requires = ["uv_build>=0.8.11,<0.9.0"]
-build-backend = "uv_build"
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = [""]
+include = ["api*", "core*", "models*", "services*", "utils*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["../.."]
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "pytest>=8.4.1",
+    "pytest-asyncio>=1.1.0",
+]
+
